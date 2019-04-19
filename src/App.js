@@ -10,14 +10,14 @@ import ResetButton from './components/ResetButton';
 
 class App extends Component {
   start = () => {
-    if (this.props.disabled) {
+    const { disabled, step, periods } = this.props;
+    if (disabled) {
       return;
     }
 
     console.log('start timer');
     this.props.onStart();
-
-    setTimeout(this.stop, 5000);
+    setTimeout(this.stop, periods[step]);
   };
 
   stop = () => {
@@ -31,13 +31,13 @@ class App extends Component {
   };
 
   render() {
-    const { count, disabled } = this.props;
+    const { count, disabled, step, limit } = this.props;
 
     return (
       <Container>
-        <BrewButton start={this.start} disabled={disabled}/>
+        <BrewButton start={this.start} disabled={disabled} step={step}/>
         <BrewCounter count={count}/>
-        <ResetButton reset={this.reset} disabled={disabled || count === 0}/>
+        <ResetButton reset={this.reset} disabled={(disabled || count === 0) && count < limit}/>
       </Container>
     );
   }
@@ -46,7 +46,9 @@ class App extends Component {
 const mapStateToProps = state => ({
   count: state.app.count,
   limit: state.app.limit,
-  disabled: state.app.disabled
+  disabled: state.app.disabled,
+  step: state.app.step,
+  periods: state.app.periods
 });
 const mapDispatchToProps = dispatch => ({
   onStart: () => dispatch(actions.startTimer()),
