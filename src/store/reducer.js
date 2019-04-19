@@ -1,4 +1,4 @@
-import { RESET_COUNTS, START_TIMER, STOP_TIMER } from './actionTypes';
+import { START_TIMER, STOP_TIMER, RESET_TIMER } from './actionTypes';
 
 const initialState = {
   count: 0,
@@ -31,7 +31,7 @@ export default (state = initialState, action) => {
         disabled: state.count + 1 >= state.limit
       };
     }
-    case RESET_COUNTS: {
+    case RESET_TIMER: {
       return {
         ...state,
         count: 0,

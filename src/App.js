@@ -53,7 +53,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onStart: () => dispatch(actions.startTimer()),
   onStop: () => dispatch(actions.stopTimer()),
-  onReset: () => dispatch(actions.resetCounts())
+  onReset: () => dispatch(actions.resetTimer())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
