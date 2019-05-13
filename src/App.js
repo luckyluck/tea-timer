@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import './App.css';
 import { Container } from './App.styles';
 import * as actions from './store/actions';
 import BrewButton from './components/BrewButton';
