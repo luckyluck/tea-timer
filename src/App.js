@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+// @flow
+import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { Container } from './App.styles';
@@ -7,39 +8,53 @@ import BrewButton from './components/BrewButton';
 import BrewCounter from './components/BrewCounter';
 import ResetButton from './components/ResetButton';
 
-class App extends Component {
-  start = () => {
-    const { disabled, step, periods } = this.props;
-    if (disabled) {
+type Props = {
+  count: number,
+  limit: number,
+  disabled: boolean,
+  step: number,
+  periods: Array<number>,
+  onStart: Function,
+  onStop: Function,
+  onReset: Function
+};
+
+const App = (props: Props) => {
+  const start = () => {
+    if (props.disabled) {
       return;
     }
-
     console.log('start timer');
-    this.props.onStart();
-    setTimeout(this.stop, periods[step]);
+    props.onStart();
   };
 
-  stop = () => {
+  const stop = () => {
     console.log('stop timer');
-    this.props.onStop();
+    props.onStop();
   };
 
-  reset = () => {
+  const reset = () => {
     console.log('reset timer');
-    this.props.onReset();
+    props.onReset();
   };
 
-  render() {
-    const { count, disabled, step, limit } = this.props;
 
-    return (
-      <Container>
-        <BrewButton start={this.start} disabled={disabled} step={step}/>
-        <BrewCounter count={count}/>
-        <ResetButton reset={this.reset} disabled={(disabled || count === 0) && count < limit}/>
-      </Container>
-    );
-  }
+  return (
+    <Container>
+      <BrewButton
+        start={start}
+        stop={stop}
+        disabled={props.disabled}
+        step={props.step}
+        time={props.periods[props.step]}
+      />
+      <BrewCounter count={props.count}/>
+      <ResetButton
+        reset={reset}
+        disabled={(props.disabled || props.count === 0) && props.count < props.limit}
+      />
+    </Container>
+  );
 }
 
 const mapStateToProps = state => ({

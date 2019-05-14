@@ -20,3 +20,8 @@ export const Button = styled.button`
       border-color: #404040;
     }
 `;
+
+export const CountDown = styled.span`
+  font-size: .8rem;
+  display: block;
+`;
