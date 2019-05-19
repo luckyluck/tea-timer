@@ -4,13 +4,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
-import { Provider, store } from './store/store';
+import AppContext, { defaultContext }  from './context';
 
 ReactDOM.render(
-  <Provider store={store}>
+  <AppContext.Provider value={defaultContext}>
     <App />
-  </Provider>,
+  </AppContext.Provider>,
   document.getElementById('root')
 );
 
