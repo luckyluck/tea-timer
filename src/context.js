@@ -4,7 +4,6 @@ import * as React from 'react';
 type DefaultContext = {
   limit: number,
   periods: Array<number>,
-  step: number,
 };
 
 export const defaultContext: DefaultContext = {
@@ -17,7 +16,6 @@ export const defaultContext: DefaultContext = {
     27000, // 270000, // 4 min 30 sec
     30000 // 300000 // 5 min
   ],
-  step: 0,
 };
 
 export default React.createContext<DefaultContext>();

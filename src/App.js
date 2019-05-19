@@ -11,10 +11,10 @@ import ResetButton from './components/ResetButton';
 
 const App = () => {
   // Initial data from context
-  const { limit, periods, step } = React.useContext(AppContext);
+  const { limit, periods } = React.useContext(AppContext);
   const [disabled, setDisabled] = React.useState(false);
   const [count, setCount] = React.useState(0);
-  const [currentStep, setCurrentStep] = React.useState(step);
+  const [currentStep, setCurrentStep] = React.useState(0);
 
   const start = () => {
     if (disabled) {
@@ -26,17 +26,16 @@ const App = () => {
 
   const stop = () => {
     console.log('stop timer');
+    setDisabled(count + 1 >= limit);
     if (currentStep > 0) {
       setCount(prevCount => prevCount + 1);
     }
-    setCurrentStep(prevStep => prevStep + 1);
-    // TODO set disabled if limit was exceeded
-    setDisabled(false);
+    setCurrentStep(currentStep + 1);
   };
 
   const reset = () => {
     console.log('reset timer');
-    setCurrentStep(step);
+    setCurrentStep(0);
     setCount(0);
     setDisabled(false);
   };

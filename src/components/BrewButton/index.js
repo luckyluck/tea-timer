@@ -18,7 +18,7 @@ const BrewButton = ({ disabled, start, stop, step, time }: Props) => {
 
     React.useEffect(() => {
       // Checking if it's time to stop timer
-      if (timer <= 0) {
+      if (timer <= 0 && intervalId) {
         clearInterval(intervalId);
         setIntervalId(null);
         stop();
@@ -42,9 +42,28 @@ const BrewButton = ({ disabled, start, stop, step, time }: Props) => {
         );
     };
 
+    const getText = () => {
+      if (intervalId) {
+        return 'Brewing...';
+      }
+
+      switch(step) {
+        case 0:
+          return 'First brewing';
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+          return 'Brew';
+        default:
+          return 'Refresh'
+      }
+    };
+
     return (
         <Button disabled={disabled} onClick={handleClick}>
-            {step === 0 ? 'First brewing' : 'Brew'}
+            {getText()}
             <CountDown>{toMinutesAndSeconds(timer)}</CountDown>
         </Button>
     );
