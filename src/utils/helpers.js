@@ -2,10 +2,17 @@
 /**
  * Function converts number to string with minutes and seconds
  * @function toMinutesAndSeconds
- * @param {number} time
+ * @param {number} time - a number which should be positive and 59 minutes 59 seconds as a maximum
  * @returns {string}
  */
 export const toMinutesAndSeconds = (time: number): string => {
+  // Setting limit to 59 minutes 59 seconds
+  const limit = 60 * 60 * 1000 - 1000;
+
+  if (time === null || !isFinite(time) || time < 0 || time > limit) {
+    return '00:00';
+  }
+
   const minutes = Math.floor(time / (60 * 1000));
   const seconds = (time - minutes * 60 * 1000) / 1000;
 
