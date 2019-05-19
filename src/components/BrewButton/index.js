@@ -23,7 +23,11 @@ const BrewButton = ({ disabled, start, stop, step, time }: Props) => {
         setIntervalId(null);
         stop();
       }
-    }, [timer]);
+      // Updating timer after every step increase
+      if (!intervalId && !timer) {
+        setTimer(time);
+      }
+    }, [timer, time]);
 
     const handleClick = () => {
         // Clearing any existing interval
