@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Fade } from 'reactstrap';
 
 import AppContext from './context';
 
@@ -14,7 +14,7 @@ const App = () => {
   // Initial data from context
   const { limit, periods } = React.useContext(AppContext);
   const [disabled, setDisabled] = React.useState(false);
-  const [count, setCount] = React.useState(0);
+  const [count, setCount] = React.useState(-1);
   const [currentStep, setCurrentStep] = React.useState(0);
 
   const start = () => {
@@ -28,15 +28,13 @@ const App = () => {
   const stop = () => {
     console.log('stop timer');
     setDisabled(count + 1 >= limit);
-    if (currentStep > 0) {
-      setCount(prevCount => prevCount + 1);
-    }
+    setCount(prevCount => prevCount + 1);
     setCurrentStep(currentStep + 1);
   };
 
   const reset = () => {
     console.log('reset timer');
-    setCurrentStep(0);
+    setCurrentStep(-1);
     setCount(0);
     setDisabled(false);
   };
@@ -62,10 +60,12 @@ const App = () => {
       </Row>
       <Row>
         <Col>
-          <ResetButton
-            reset={reset}
-            disabled={(disabled || count === 0) && count < limit}
-          />
+          <Fade in={count > 0}>
+            <ResetButton
+              reset={reset}
+              disabled={disabled}
+            />
+          </Fade>
         </Col>
       </Row>
     </MainContainer>
