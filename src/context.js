@@ -6,7 +6,7 @@ type DefaultContext = {
   periods: Array<number>,
 };
 
-const periods = process.env.NODE_ENV !== 'production' && process.env.TIME_PERIODS ?
+const periods = process.env.TIME_PERIODS ?
   process.env.TIME_PERIODS.split(' ').map(i => +i) : [
     30000,  // 30 sec
     180000, // 3 min

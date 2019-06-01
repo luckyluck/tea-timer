@@ -28,8 +28,10 @@ module.exports = {
   plugins: [
     htmlWebpackPlugin,
     new Dotenv({
-      path: process.env.NODE_ENV !== 'production' ? './.env.development' : './.env.production', // Path to .env.development file (this is the default)
-      safe: false, // load .env.development.example (defaults to "false" which does not use dotenv-safe)
+      // Path to .env.development file (this is the default)
+      path: process.env.NODE_ENV !== 'production' ? './.env.development' : './.env.production',
+      // load .env.development.example (defaults to "false" which does not use dotenv-safe)
+      safe: false
     })
   ]
 };
