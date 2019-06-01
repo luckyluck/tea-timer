@@ -6,16 +6,18 @@ type DefaultContext = {
   periods: Array<number>,
 };
 
+const periods = process.env.REACT_APP_PERIODS ? process.env.REACT_APP_PERIODS.split(' ').map(i => +i) : [
+  30000,  // 30 sec
+  180000, // 3 min
+  210000, // 3 min 30 sec
+  240000, // 4 min
+  270000, // 4 min 30 sec
+  300000 // 5 min
+];
+
 export const defaultContext: DefaultContext = {
   limit: 5,
-  periods: [
-    3000, // 30000, // 30 sec
-    18000, // 180000, // 3 min
-    21000, // 210000, // 3 min 30 sec
-    24000, // 240000, // 4 min
-    27000, // 270000, // 4 min 30 sec
-    30000 // 300000 // 5 min
-  ],
+  periods
 };
 
 export default React.createContext<DefaultContext>();

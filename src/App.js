@@ -1,13 +1,14 @@
 // @flow
 import * as React from 'react';
-
-import { Container } from './App.styles';
+import { Row, Col } from 'reactstrap';
 
 import AppContext from './context';
 
 import BrewButton from './components/BrewButton';
 import BrewCounter from './components/BrewCounter';
 import ResetButton from './components/ResetButton';
+
+import { MainContainer } from './App.styles';
 
 const App = () => {
   // Initial data from context
@@ -42,22 +43,32 @@ const App = () => {
 
 
   return (
-    <Container>
-      <BrewButton
-        start={start}
-        stop={stop}
-        disabled={disabled}
-        step={currentStep}
-        time={periods[currentStep]}
-      />
-
-      <BrewCounter count={count}/>
-
-      <ResetButton
-        reset={reset}
-        disabled={(disabled || count === 0) && count < limit}
-      />
-    </Container>
+    <MainContainer>
+      <Row>
+        <Col>
+          <BrewButton
+            start={start}
+            stop={stop}
+            disabled={disabled}
+            step={currentStep}
+            time={periods[currentStep]}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <BrewCounter count={count}/>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <ResetButton
+            reset={reset}
+            disabled={(disabled || count === 0) && count < limit}
+          />
+        </Col>
+      </Row>
+    </MainContainer>
   );
 };
 
