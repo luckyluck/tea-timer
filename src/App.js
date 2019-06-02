@@ -1,6 +1,7 @@
 // @flow
 import * as React from 'react';
-import { Row, Col, Fade } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
+import SkipButton from './components/SkipButton';
 
 import AppContext from './context';
 import { CURRENT_STEP, COUNT_VALUE } from './constants';
@@ -34,6 +35,10 @@ const App = () => {
   const stop = () => {
     console.log('stop timer');
     setDisabled(false);
+    skip();
+  };
+
+  const skip = () => {
     setCount(prevCount => prevCount + 1);
     setCurrentStep(prevStep => prevStep + 1);
     localStorage.setItem(CURRENT_STEP, JSON.stringify(currentStep + 1));
@@ -70,12 +75,10 @@ const App = () => {
       </Row>
       <Row>
         <Col>
-          <Fade in={count > 0} className={'text-center'}>
-            <ResetButton
-              reset={reset}
-              disabled={disabled}
-            />
-          </Fade>
+          <SkipButton skip={skip} disabled={disabled || count >= limit}/>
+        </Col>
+        <Col>
+          <ResetButton reset={reset} disabled={disabled || count < 1}/>
         </Col>
       </Row>
     </MainContainer>

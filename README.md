@@ -9,11 +9,8 @@
     * 5 min
 
 ## TODO:
-* add progress bar for counter
-* keep data in the localStorage to restore on page reload
 * add information modal (how to brew green tea properly)
 * add service worker
-* * cache static files to work offline
 * * show notification about adding the app on a desktop
 * Add Jest unit tests
 

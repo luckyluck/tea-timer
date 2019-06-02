@@ -7,8 +7,8 @@ type Props = {
   reset: Function
 };
 
-const ResetButton = (props: Props) => (
-  <Button outline color={'secondary'} disabled={props.disabled} onClick={props.reset}>
+const ResetButton = ({ disabled, reset }: Props) => (
+  <Button color={'secondary'} block={true} disabled={disabled} onClick={reset}>
     Reset
   </Button>
 );
