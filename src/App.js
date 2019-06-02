@@ -34,15 +34,15 @@ const App = () => {
 
   const reset = () => {
     console.log('reset timer');
-    setCurrentStep(-1);
-    setCount(0);
+    setCurrentStep(0);
+    setCount(-1);
     setDisabled(false);
   };
 
   return (
     <MainContainer>
       <Row>
-        <Col>
+        <Col className={'text-center'}>
           <BrewButton
             start={start}
             stop={stop}

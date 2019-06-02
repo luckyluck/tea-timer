@@ -1,5 +1,6 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const htmlWebpackPlugin = new HtmlWebPackPlugin({
   template: './public/index.html',
@@ -32,6 +33,21 @@ module.exports = {
       path: process.env.NODE_ENV !== 'production' ? './.env.development' : './.env.production',
       // load .env.development.example (defaults to "false" which does not use dotenv-safe)
       safe: false
-    })
+    }),
+    /**
+     * All files inside webpack's output.path directory will be removed once, but the
+     * directory itself will not be. If using webpack 4+'s default configuration,
+     * everything under <PROJECT_DIR>/build/ will be removed.
+     * Use cleanOnceBeforeBuildPatterns to override this behavior.
+     *
+     * During rebuilds, all webpack assets that are not used anymore
+     * will be removed automatically.
+     *
+     * See more https://github.com/johnagan/clean-webpack-plugin
+     */
+    new CleanWebpackPlugin({
+      // Write Logs to Console
+      verbose: true,
+    }),
   ]
 };
