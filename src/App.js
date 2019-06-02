@@ -3,24 +3,30 @@ import * as React from 'react';
 import { Row, Col, Fade } from 'reactstrap';
 
 import AppContext from './context';
+import { CURRENT_STEP, COUNT_VALUE } from './constants';
 
 import BrewButton from './components/BrewButton';
 import BrewCounter from './components/BrewCounter';
+
 import ResetButton from './components/ResetButton';
 
 import { MainContainer } from './App.styles';
 
 const App = () => {
+  const storedCount = localStorage.getItem(COUNT_VALUE) ? +localStorage.getItem(COUNT_VALUE) : -1;
+  const storedStep = localStorage.getItem(CURRENT_STEP) ? +localStorage.getItem(CURRENT_STEP) : 0;
+
   // Initial data from context
   const { limit, periods } = React.useContext(AppContext);
   const [disabled, setDisabled] = React.useState(false);
-  const [count, setCount] = React.useState(-1);
-  const [currentStep, setCurrentStep] = React.useState(0);
+  const [count, setCount] = React.useState(storedCount);
+  const [currentStep, setCurrentStep] = React.useState(Math.min(storedStep, limit + 1));
 
   const start = () => {
     if (disabled) {
       return;
     }
+
     console.log('start timer');
     setDisabled(true);
   };
@@ -29,13 +35,17 @@ const App = () => {
     console.log('stop timer');
     setDisabled(count + 1 >= limit);
     setCount(prevCount => prevCount + 1);
-    setCurrentStep(currentStep + 1);
+    setCurrentStep(prevStep => prevStep + 1);
+    localStorage.setItem(CURRENT_STEP, JSON.stringify(currentStep + 1));
+    localStorage.setItem(COUNT_VALUE, JSON.stringify(count + 1));
   };
 
   const reset = () => {
     console.log('reset timer');
     setCurrentStep(0);
+    localStorage.setItem(CURRENT_STEP, '0');
     setCount(-1);
+    localStorage.setItem(COUNT_VALUE, '-1');
     setDisabled(false);
   };
 
