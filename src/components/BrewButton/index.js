@@ -26,7 +26,7 @@ const BrewButton = ({ disabled, start, stop, step, time, limit }: Props) => {
       stop();
     }
     // Updating timer after every step increase
-    if (!intervalId && !timer) {
+    if (!intervalId && (!timer || timer !== time)) {
       setTimer(time);
     }
   }, [timer, time]);
