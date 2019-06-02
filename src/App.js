@@ -33,7 +33,7 @@ const App = () => {
 
   const stop = () => {
     console.log('stop timer');
-    setDisabled(count + 1 >= limit);
+    setDisabled(false);
     setCount(prevCount => prevCount + 1);
     setCurrentStep(prevStep => prevStep + 1);
     localStorage.setItem(CURRENT_STEP, JSON.stringify(currentStep + 1));

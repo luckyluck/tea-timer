@@ -1,6 +1,7 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const htmlWebpackPlugin = new HtmlWebPackPlugin({
   template: './public/index.html',
@@ -49,5 +50,11 @@ module.exports = {
       // Write Logs to Console
       verbose: true,
     }),
+    new CopyPlugin([
+      { from: 'public/favicon.ico', to: 'favicon.ico' },
+      { from: 'public/manifest.json', to: 'manifest.json' },
+      { from: 'public/serviceWorker.js', to: 'serviceWorker.js' },
+      { from: 'public/tea-64.png', to: 'tea-64.png' },
+    ]),
   ]
 };

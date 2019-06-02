@@ -1,15 +1,20 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Tea timer",
+  "name": "Simple green tea brewing timer",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "/tea-64.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     }
   ],
   "start_url": ".",
+  "scope": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "orientation": "portrait-primary",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "description": "A simple app to help you brew your green tea in a proper way",
+  "dir": "ltr",
+  "lang": "en-US"
 }
