@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { Row, Col, Button, Spinner } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 
 import { ActionButton } from './index.styles';
 import { toMinutesAndSeconds } from '../../utils/helpers';
@@ -10,10 +10,11 @@ type Props = {
   step: number,
   start: Function,
   stop: Function,
-  time: number
+  time: number,
+  limit: number,
 };
 
-const BrewButton = ({ disabled, start, stop, step, time }: Props) => {
+const BrewButton = ({ disabled, start, stop, step, time, limit }: Props) => {
   const [intervalId, setIntervalId] = React.useState(null);
   const [timer, setTimer] = React.useState(time);
 
@@ -45,20 +46,16 @@ const BrewButton = ({ disabled, start, stop, step, time }: Props) => {
 
   const getText = () => {
     if (intervalId) {
-      return 'Brewing...';
+      return step === 0 ? 'Preparing...' : 'Brewing...';
     }
 
-    switch (step) {
-      case 0:
+    switch (true) {
+      case step === 0:
         return 'Prepare';
-      case 1:
-      case 2:
-      case 3:
-      case 4:
-      case 5:
-        return 'Brew';
-      default:
+      case step > limit:
         return 'Refresh';
+      default:
+        return 'Brew';
     }
   };
 

@@ -15,6 +15,7 @@
 * add service worker
 * * cache static files to work offline
 * * show notification about adding the app on a desktop
+* Add Jest unit tests
 
 ## Plans
 * customise limitations (how many times tea can be brewed)

@@ -39,7 +39,6 @@ const App = () => {
     setDisabled(false);
   };
 
-
   return (
     <MainContainer>
       <Row>
@@ -50,17 +49,18 @@ const App = () => {
             disabled={disabled}
             step={currentStep}
             time={periods[currentStep]}
+            limit={limit}
           />
         </Col>
       </Row>
       <Row>
         <Col>
-          <BrewCounter count={count}/>
+          <BrewCounter count={count} limit={limit}/>
         </Col>
       </Row>
       <Row>
         <Col>
-          <Fade in={count > 0}>
+          <Fade in={count > 0} className={'text-center'}>
             <ResetButton
               reset={reset}
               disabled={disabled}

@@ -1,8 +1,6 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import { Button } from 'reactstrap';
-
-// import { Button } from './index.styles';
 
 type Props = {
   disabled: boolean,
@@ -10,7 +8,9 @@ type Props = {
 };
 
 const ResetButton = (props: Props) => (
-  <Button outline color={'secondary'} disabled={props.disabled} onClick={props.reset}>Reset</Button>
+  <Button outline color={'secondary'} disabled={props.disabled} onClick={props.reset}>
+    Reset
+  </Button>
 );
 
 export default ResetButton;

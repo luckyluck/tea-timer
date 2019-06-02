@@ -7,4 +7,8 @@ export const MainContainer = styled(Container)`
   align-items: center;
   flex-direction: column;
   height: 100vh;
+  
+  & > div {
+    width: 100%;
+  }
 `;
