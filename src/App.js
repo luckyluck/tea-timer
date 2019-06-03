@@ -61,7 +61,7 @@ const App = () => {
           <BrewButton
             start={start}
             stop={stop}
-            disabled={disabled}
+            disabled={disabled || count >= limit}
             step={currentStep}
             time={periods[currentStep]}
             limit={limit}
