@@ -1,8 +1,7 @@
-const CACHE = 'network-or-cache';
+const CACHE = 'network-update-cache';
 const STATIC_FILES = [
   '/',
   '/index.html',
-  '/main.js',
   '/tea-64.png',
 ];
 
@@ -20,18 +19,29 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   console.log('[Service Worker] Serving the asset...');
-  // Network with cache fallback strategy
-  event.respondWith(async function() {
+  // Network with update and cache fallback strategy
+  event.respondWith(() => {
     try {
-      return await fetch(event.request);
-    } catch (err) {
-      return caches.match(event.request);
+      return fromNetworkWithUpdate(event.request);
+    } catch(e) {
+      return fromCache(event.request);
     }
-  }());
+  })
 });
 
-function preCache() {
-  return caches.open(CACHE).then(cache => {
-    return cache.addAll(STATIC_FILES);
-  });
+async function preCache() {
+  const cache = await caches.open(CACHE);
+  return cache.addAll(STATIC_FILES);
+}
+
+async function fromCache(request) {
+  const cache = await caches.open(CACHE);
+  const matching = cache.match(request);
+  return matching || Promise.reject('no-match');
+}
+async function fromNetworkWithUpdate(request) {
+  const cache = await caches.open(CACHE);
+  const response = await fetch(request);
+  cache.put(request, response.clone());
+  return response;
 }
