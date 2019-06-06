@@ -9,15 +9,10 @@
     * 5 min
 
 ## TODO:
-* add information modal (how to brew green tea properly)
 * add service worker
 * * show notification about adding the app on a desktop
 * Add Jest unit tests
 
 ## Plans
-* customise limitations (how many times tea can be brewed)
-* customise periods
-* customise number of steps/stages
 * keep statistics
 * page to show statistics
-* add option to notify to buy new tea after N brewing sessions

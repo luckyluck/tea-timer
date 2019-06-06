@@ -19,14 +19,14 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   console.log('[Service Worker] Serving the asset...');
-  // Network with update and cache fallback strategy
-  event.respondWith(() => {
+  // Cache with network and update fallback strategy
+  event.respondWith(function() {
     try {
-      return fromNetworkWithUpdate(event.request);
-    } catch(e) {
       return fromCache(event.request);
+    } catch (err) {
+      return fromNetworkWithUpdate(event.request);
     }
-  })
+  }());
 });
 
 async function preCache() {
@@ -39,6 +39,7 @@ async function fromCache(request) {
   const matching = cache.match(request);
   return matching || Promise.reject('no-match');
 }
+
 async function fromNetworkWithUpdate(request) {
   const cache = await caches.open(CACHE);
   const response = await fetch(request);
