@@ -1,4 +1,3 @@
-// @flow
 /**
  * Function converts number to string with minutes and seconds
  * @function toMinutesAndSeconds
@@ -30,5 +29,5 @@ export const getProgress = (x: number, fullNumber: number) => {
     return 0;
   }
 
-  return parseInt(x * 100 / fullNumber, 10);
+  return Math.floor(x * 100 / fullNumber);
 };

@@ -1,13 +1,12 @@
-// @flow
 import * as React from 'react';
 import { Progress } from 'reactstrap';
 
 import { getProgress } from '../../utils/helpers';
 
-type Props = {
+interface Props {
   count: number,
   limit: number,
-};
+}
 
 const BrewCounter = ({ count, limit }: Props) => (
   <>

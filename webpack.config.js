@@ -1,3 +1,4 @@
+const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -5,22 +6,33 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 const htmlWebpackPlugin = new HtmlWebPackPlugin({
   template: './public/index.html',
-  filename: './index.html'
 });
 
 module.exports = {
+  mode: 'none',
+  entry: {
+    app: './src/index.tsx'
+  },
+  // Enable sourcemaps for debugging webpack's output.
+  devtool: 'source-map',
   output: {
-    path: __dirname + '/build',
-    filename: '[hash].bundle.js',
+    path: path.resolve(__dirname, '/build'),
+    filename: '[hash].bundle.js'
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js']
   },
   module: {
     rules: [
       {
+        test: /\.tsx?$/,
+        loader: 'awesome-typescript-loader'
+      },
+      // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+      {
+        enforce: 'pre',
         test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
+        loader: 'source-map-loader'
       },
       {
         test: /\.css$/,
@@ -49,13 +61,13 @@ module.exports = {
      */
     new CleanWebpackPlugin({
       // Write Logs to Console
-      verbose: true,
+      verbose: true
     }),
     new CopyPlugin([
       { from: 'public/favicon.ico', to: 'favicon.ico' },
       { from: 'public/manifest.json', to: 'manifest.json' },
       { from: 'public/serviceWorker.js', to: 'serviceWorker.js' },
-      { from: 'public/images', to: 'images' },
-    ]),
-  ]
+      { from: 'public/images', to: 'images' }
+    ])
+  ],
 };

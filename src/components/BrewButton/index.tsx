@@ -1,18 +1,17 @@
-// @flow
 import * as React from 'react';
 import { Row, Col } from 'reactstrap';
 
 import { ActionButton } from './index.styles';
 import { toMinutesAndSeconds } from '../../utils/helpers';
 
-type Props = {
+interface Props {
   disabled: boolean,
   step: number,
   start: Function,
   stop: Function,
   time: number,
   limit: number,
-};
+}
 
 const BrewButton = ({ disabled, start, stop, step, time, limit }: Props) => {
   const [intervalId, setIntervalId] = React.useState(null);
