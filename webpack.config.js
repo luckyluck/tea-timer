@@ -16,7 +16,7 @@ module.exports = {
   // Enable sourcemaps for debugging webpack's output.
   devtool: 'source-map',
   output: {
-    path: path.resolve(__dirname, '/build'),
+    path: path.resolve(__dirname, './build'),
     filename: '[hash].bundle.js'
   },
   resolve: {
@@ -41,13 +41,6 @@ module.exports = {
     ]
   },
   plugins: [
-    htmlWebpackPlugin,
-    new Dotenv({
-      // Path to .env.development file (this is the default)
-      path: process.env.NODE_ENV !== 'production' ? './.env.development' : './.env.production',
-      // load .env.development.example (defaults to "false" which does not use dotenv-safe)
-      safe: false
-    }),
     /**
      * All files inside webpack's output.path directory will be removed once, but the
      * directory itself will not be. If using webpack 4+'s default configuration,
@@ -62,6 +55,13 @@ module.exports = {
     new CleanWebpackPlugin({
       // Write Logs to Console
       verbose: true
+    }),
+    htmlWebpackPlugin,
+    new Dotenv({
+      // Path to .env.development file (this is the default)
+      path: process.env.NODE_ENV !== 'production' ? './.env.development' : './.env.production',
+      // load .env.development.example (defaults to "false" which does not use dotenv-safe)
+      safe: false
     }),
     new CopyPlugin([
       { from: 'public/favicon.ico', to: 'favicon.ico' },
