@@ -60,26 +60,31 @@ const App = () => {
           <BrewButton
             start={start}
             stop={stop}
-            disabled={disabled || count >= limit}
+            active={disabled}
+            disabled={count >= limit}
             step={currentStep}
             time={periods[currentStep]}
             limit={limit}
           />
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <BrewCounter count={count} limit={limit}/>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <SkipButton skip={skip} disabled={disabled || count >= limit}/>
-        </Col>
-        <Col>
-          <ResetButton reset={reset} disabled={disabled || count < 1}/>
-        </Col>
-      </Row>
+      {!disabled && (
+        <>
+          <Row>
+            <Col>
+              <BrewCounter count={count} limit={limit}/>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <SkipButton skip={skip} disabled={count >= limit}/>
+            </Col>
+            <Col>
+              <ResetButton reset={reset} disabled={count < 1}/>
+            </Col>
+          </Row>
+        </>
+      )}
     </MainContainer>
   );
 };

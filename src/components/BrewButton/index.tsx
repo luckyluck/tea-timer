@@ -6,6 +6,7 @@ import { toMinutesAndSeconds } from '../../utils/helpers';
 
 interface Props {
   disabled: boolean,
+  active: boolean,
   step: number,
   start: Function,
   stop: Function,
@@ -13,7 +14,7 @@ interface Props {
   limit: number,
 }
 
-const BrewButton = ({ disabled, start, stop, step, time, limit }: Props) => {
+const BrewButton = ({ disabled, active, start, stop, step, time, limit }: Props) => {
   const [intervalId, setIntervalId] = React.useState(null);
   const [timer, setTimer] = React.useState(time);
 
@@ -59,7 +60,7 @@ const BrewButton = ({ disabled, start, stop, step, time, limit }: Props) => {
   };
 
   return (
-    <ActionButton color={'primary'} disabled={disabled} onClick={handleClick}>
+    <ActionButton color={'primary'} disabled={disabled} active={active} onClick={handleClick}>
       <Row>
         <Col>
           {getText()}
