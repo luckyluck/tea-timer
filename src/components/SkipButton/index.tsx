@@ -1,11 +1,10 @@
-// @flow
 import * as React from 'react';
 import { Button } from 'reactstrap';
 
-type Props = {
+interface Props {
   disabled: boolean,
   skip: Function
-};
+}
 
 const SkipButton = ({ disabled, skip }: Props) => (
   <Button color={'info'} block={true} disabled={disabled} onClick={skip}>

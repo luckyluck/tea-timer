@@ -1,10 +1,4 @@
-// @flow
 import * as React from 'react';
-
-type DefaultContext = {
-  limit: number,
-  periods: Array<number>,
-};
 
 const periods = process.env.NODE_ENV === 'development' && process.env.TIME_PERIODS ?
   process.env.TIME_PERIODS.split(' ').map(i => +i) : [
@@ -16,9 +10,9 @@ const periods = process.env.NODE_ENV === 'development' && process.env.TIME_PERIO
     300000 // 5 min
   ];
 
-export const defaultContext: DefaultContext = {
+export const defaultContext = {
   limit: 5,
   periods
 };
 
-export default React.createContext<DefaultContext>();
+export default React.createContext(defaultContext);
