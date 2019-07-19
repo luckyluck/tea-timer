@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Row, Col } from 'reactstrap';
+import { Spring } from 'react-spring/renderprops';
 
 import { ActionButton } from './index.styles';
 import { toMinutesAndSeconds } from '../../utils/helpers';
@@ -46,7 +47,7 @@ const BrewButton = ({ disabled, active, start, stop, step, time, limit }: Props)
 
   const getText = () => {
     if (intervalId) {
-      return step === 0 ? 'Preparing...' : 'Brewing...';
+      return step === 0 ? 'Preparing' : 'Brewing';
     }
 
     switch (true) {
@@ -60,18 +61,30 @@ const BrewButton = ({ disabled, active, start, stop, step, time, limit }: Props)
   };
 
   return (
-    <ActionButton color={'primary'} disabled={disabled} active={active} onClick={handleClick}>
-      <Row>
-        <Col>
-          {getText()}
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          {toMinutesAndSeconds(timer)}
-        </Col>
-      </Row>
-    </ActionButton>
+    <Spring native from={{ scale: 1 }} to={{ scale: active ? 10 : 1 }}>
+      {({ scale }) => (
+        <ActionButton
+          style={{ transform: (scale as any).interpolate(scale => `scale(${scale})`) }}
+          disabled={disabled}
+          onClick={handleClick}
+        >
+          {!active && (
+            <Row>
+              <Col>
+                {getText()}
+              </Col>
+            </Row>
+          )}
+          {step <= limit && (
+            <Row>
+              <Col>
+                {toMinutesAndSeconds(timer)}
+              </Col>
+            </Row>
+          )}
+        </ActionButton>
+      )}
+    </Spring>
   );
 };
 
