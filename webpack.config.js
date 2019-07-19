@@ -67,7 +67,8 @@ module.exports = {
       { from: 'public/favicon.ico', to: 'favicon.ico' },
       { from: 'public/manifest.json', to: 'manifest.json' },
       { from: 'public/serviceWorker.js', to: 'serviceWorker.js' },
-      { from: 'public/images', to: 'images' }
+      { from: 'public/images', to: 'images' },
+      { from: 'public/assets', to: 'assets' },
     ])
   ],
 };
