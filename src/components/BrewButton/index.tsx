@@ -68,13 +68,11 @@ const BrewButton = ({ disabled, active, start, stop, step, time, limit }: Props)
           disabled={disabled}
           onClick={handleClick}
         >
-          {!active && (
-            <Row>
-              <Col>
-                {getText()}
-              </Col>
-            </Row>
-          )}
+          <Row style={{ visibility: active ? 'hidden' : 'visible' }}>
+            <Col>
+              {getText()}
+            </Col>
+          </Row>
           {step <= limit && (
             <Row>
               <Col>
