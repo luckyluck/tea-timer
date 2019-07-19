@@ -10,7 +10,7 @@ import BrewCounter from './components/BrewCounter';
 
 import ResetButton from './components/ResetButton';
 
-import { MainContainer } from './App.styles';
+import { GlobalStyle, MainContainer } from './App.styles';
 
 const App = () => {
   const storedCount = localStorage.getItem(COUNT_VALUE) ? +localStorage.getItem(COUNT_VALUE) : -1;
@@ -54,38 +54,37 @@ const App = () => {
   };
 
   return (
-    <MainContainer>
-      <Row>
-        <Col className={'text-center'}>
-          <BrewButton
-            start={start}
-            stop={stop}
-            active={disabled}
-            disabled={count >= limit}
-            step={currentStep}
-            time={periods[currentStep]}
-            limit={limit}
-          />
-        </Col>
-      </Row>
-      {!disabled && (
-        <>
-          <Row>
-            <Col>
-              <BrewCounter count={count} limit={limit}/>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <SkipButton skip={skip} disabled={count >= limit}/>
-            </Col>
-            <Col>
-              <ResetButton reset={reset} disabled={count < 1}/>
-            </Col>
-          </Row>
-        </>
-      )}
-    </MainContainer>
+    <>
+      <GlobalStyle/>
+      <MainContainer>
+        <Row>
+          <Col className={'text-center'}>
+            <BrewButton
+              start={start}
+              stop={stop}
+              active={disabled}
+              disabled={count >= limit}
+              step={currentStep}
+              time={periods[currentStep]}
+              limit={limit}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <BrewCounter count={count} limit={limit}/>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <SkipButton skip={skip} disabled={count >= limit}/>
+          </Col>
+          <Col>
+            <ResetButton reset={reset} disabled={count < 1}/>
+          </Col>
+        </Row>
+      </MainContainer>
+    </>
   );
 };
 

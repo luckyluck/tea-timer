@@ -1,14 +1,22 @@
 import styled from 'styled-components';
-import { Button } from 'reactstrap';
+import { animated } from 'react-spring/renderprops';
 
-export const ActionButton = styled(Button)`
+export const ActionButton = styled(animated.button)`
   width: 300px;
   height: 300px;
   border-radius: 50%;
-  transition: all .3s ease-in-out;
+  color: #ffffff;
+  background-color: #007bff;
+  border: none;
+  position: relative;
+  z-index: 1;
   
-  ${({ active }) => active && `
-    transform: scale(5);
-    z-index: 1;
-  `}
+  &:focus {
+    outline: none;
+  }
+  
+  :disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
 `;
