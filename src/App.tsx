@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { Row, Col } from 'reactstrap';
-import SkipButton from './components/SkipButton';
 
 import AppContext from './context';
+
 import { CURRENT_STEP, COUNT_VALUE } from './constants';
 
+import SkipButton from './components/SkipButton';
 import BrewButton from './components/BrewButton';
 import BrewCounter from './components/BrewCounter';
-
 import ResetButton from './components/ResetButton';
+import NoSleep from './components/NoSleep';
 
 import { GlobalStyle, MainContainer } from './App.styles';
 
@@ -55,6 +56,7 @@ const App = () => {
 
   return (
     <>
+      <NoSleep active={disabled}/>
       <GlobalStyle/>
       <MainContainer>
         <Row>
