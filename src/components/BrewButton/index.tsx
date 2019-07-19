@@ -64,7 +64,10 @@ const BrewButton = ({ disabled, active, start, stop, step, time, limit }: Props)
     <Spring native from={{ scale: 1 }} to={{ scale: active ? 10 : 1 }}>
       {({ scale }) => (
         <ActionButton
-          style={{ transform: (scale as any).interpolate(scale => `scale(${scale})`) }}
+          style={{
+            transform: (scale as any).interpolate(scale => `scale(${scale})`),
+            fontSize: active ? '80%' : '100%'
+          }}
           disabled={disabled}
           onClick={handleClick}
         >

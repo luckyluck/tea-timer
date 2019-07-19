@@ -11,7 +11,7 @@ import BrewCounter from './components/BrewCounter';
 import ResetButton from './components/ResetButton';
 import NoSleep from './components/NoSleep';
 
-import { GlobalStyle, MainContainer } from './App.styles';
+import { GlobalStyle, MainContainer, ButtonCol } from './App.styles';
 
 const App = () => {
   const storedCount = localStorage.getItem(COUNT_VALUE) ? +localStorage.getItem(COUNT_VALUE) : -1;
@@ -60,7 +60,7 @@ const App = () => {
       <GlobalStyle/>
       <MainContainer>
         <Row>
-          <Col className={'text-center'}>
+          <ButtonCol className={'text-center'}>
             <BrewButton
               start={start}
               stop={stop}
@@ -70,7 +70,7 @@ const App = () => {
               time={periods[currentStep]}
               limit={limit}
             />
-          </Col>
+          </ButtonCol>
         </Row>
         <Row>
           <Col>

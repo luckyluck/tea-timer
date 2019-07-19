@@ -1,5 +1,5 @@
 import styled, { createGlobalStyle }  from 'styled-components';
-import { Container } from 'reactstrap';
+import { Container, Col } from 'reactstrap';
 
 export const GlobalStyle = createGlobalStyle`
   #root {
@@ -17,4 +17,11 @@ export const MainContainer = styled(Container)`
   & > div {
     width: 100%;
   }
+`;
+
+
+export const ButtonCol = styled(Col)`
+  padding: 0;
+  display: flex;
+  justify-content: center;
 `;
