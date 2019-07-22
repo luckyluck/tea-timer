@@ -84,7 +84,7 @@ const App = () => {
             <SkipButton skip={skip} disabled={count >= limit}/>
           </Col>
           <Col>
-            <ResetButton reset={reset} disabled={count < 1}/>
+            <ResetButton reset={reset} disabled={count < 0}/>
           </Col>
         </Row>
       </MainContainer>
