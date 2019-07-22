@@ -10,6 +10,7 @@ import BrewButton from './components/BrewButton';
 import BrewCounter from './components/BrewCounter';
 import ResetButton from './components/ResetButton';
 import NoSleep from './components/NoSleep';
+import BeforeUnload from './components/BeforeUnload';
 
 import { GlobalStyle, MainContainer, ButtonCol } from './App.styles';
 
@@ -57,6 +58,7 @@ const App = () => {
   return (
     <>
       <NoSleep active={disabled}/>
+      {disabled && <BeforeUnload/>}
       <GlobalStyle/>
       <MainContainer>
         <Row>

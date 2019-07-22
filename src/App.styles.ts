@@ -12,6 +12,7 @@ export const MainContainer = styled(Container)`
   justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
+  min-width: 320px;
   height: 100vh;
   
   & > div {
