@@ -3,11 +3,11 @@
     // Use the window load event to keep the page load performant
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('serviceWorker.js').then(registration => {
+        // FIXME try to get rid of this construction
+        window.swRegistration = registration;
         registration.pushManager.subscribe().then(subscription => {
           console.log('---------->', subscription);
-          // FIXME try to get rid of this construction
-          window.swRegistration = registration;
         });
       });
     });
-  }</script><script src="4a4e4af040b00ec69481.bundle.js"></script></body></html>
+  }</script><script src="91924fb3e530ddf1f2de.bundle.js"></script></body></html>
