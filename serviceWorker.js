@@ -3,7 +3,7 @@ const STATIC_FILES = [
   '/',
   '/index.html',
   '/favicon.ico',
-  'manifest.json',
+  '/manifest.json',
   '/assets/nosleep.mov',
 ];
 
