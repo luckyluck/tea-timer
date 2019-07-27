@@ -2,7 +2,9 @@ const CACHE = 'network-update-cache';
 const STATIC_FILES = [
   '/',
   '/index.html',
-  '/tea-64.png',
+  '/favicon.ico',
+  'manifest.json',
+  '/assets/nosleep.mov',
 ];
 
 self.addEventListener('install', event => {
@@ -30,7 +32,10 @@ self.addEventListener('fetch', event => {
 });
 
 async function preCache() {
+  console.log('---------->requesting cache');
   const cache = await caches.open(CACHE);
+  console.log('---------->requesting cache:', cache);
+  console.log('---------->requesting cache:', STATIC_FILES);
   return cache.addAll(STATIC_FILES);
 }
 
