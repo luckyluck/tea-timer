@@ -1,5 +1,6 @@
 const CACHE = 'network-update-cache';
 const STATIC_FILES = [
+  '/',
   '/index.html',
   '/favicon.ico',
   '/manifest.json',
