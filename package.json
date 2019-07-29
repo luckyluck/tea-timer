@@ -13,6 +13,7 @@
   "scripts": {
     "start:dev": "webpack-dev-server --mode development --open --hot",
     "start:prod": "webpack-dev-server --mode production --open",
+    "test": "jest",
     "build": "webpack --mode production",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
@@ -30,6 +31,7 @@
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
+    "@types/jest": "^24.0.15",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.5",
     "awesome-typescript-loader": "^5.2.1",
@@ -40,8 +42,10 @@
     "dotenv-webpack": "^1.7.0",
     "gh-pages": "^2.0.1",
     "html-webpack-plugin": "^4.0.0-beta.8",
+    "jest": "^24.8.0",
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.1",
+    "ts-jest": "^24.0.2",
     "typescript": "^3.5.3",
     "webpack": "^4.38.0",
     "webpack-cli": "^3.3.6",

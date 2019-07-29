@@ -1,6 +1,6 @@
-import { toMinutesAndSeconds } from './helpers';
+import { toMinutesAndSeconds, getProgress } from './helpers';
 
-/*describe('Helper functions', () => {
+describe('Helper functions', () => {
 
   describe('toMinutesAndSeconds', () => {
     describe('should return all zeros', () => {
@@ -38,4 +38,22 @@ import { toMinutesAndSeconds } from './helpers';
     });
   });
 
-});*/
+  describe('getProgress', () => {
+    it('should return zero if x or fullNumber is invalid', () => {
+      expect(getProgress(0, 100)).toBe(0);
+      expect(getProgress(100, 0)).toBe(0);
+      expect(getProgress(100, 1)).toBe(0);
+      expect(getProgress(-5, 10)).toBe(0);
+      expect(getProgress(5, -10)).toBe(0);
+    });
+
+    it('should return valid value rounded to the floor', () => {
+      expect(getProgress(5, 33)).toBe(15);
+      expect(getProgress(3, 11)).toBe(27);
+      expect(getProgress(9, 77)).toBe(11);
+      expect(getProgress(13, 75)).toBe(17);
+      expect(getProgress(100, 111)).toBe(90);
+    });
+  });
+
+});

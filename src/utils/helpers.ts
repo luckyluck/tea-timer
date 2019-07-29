@@ -7,7 +7,7 @@ import { Permissions } from './enums';
  * @param {number} time - a number which should be positive and 59 minutes 59 seconds as a maximum
  * @returns {string}
  */
-export const toMinutesAndSeconds = (time: number): string => {
+export const toMinutesAndSeconds = (time?: number): string => {
   // Setting limit to 59 minutes 59 seconds
   const limit = 60 * 60 * 1000 - 1000;
 
@@ -28,9 +28,10 @@ export const toMinutesAndSeconds = (time: number): string => {
  * @returns {number}
  */
 export const getProgress = (x: number, fullNumber: number) => {
-  if (x < 1) {
-    return 0;
-  }
+  // TypeScript will fail if we try to provide not-number as arguments
+  if (!x || !fullNumber || typeof x !== 'number' || typeof fullNumber !== 'number' || x < 1) return 0;
+  // This case is invalid
+  if (x > fullNumber) return 0;
 
   return Math.floor(x * 100 / fullNumber);
 };
