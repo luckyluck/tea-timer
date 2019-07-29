@@ -1,3 +1,6 @@
+import { NOTIFICATION_KEY } from './constants';
+import { Permissions } from './enums';
+
 /**
  * Function converts number to string with minutes and seconds
  * @function toMinutesAndSeconds
@@ -30,4 +33,25 @@ export const getProgress = (x: number, fullNumber: number) => {
   }
 
   return Math.floor(x * 100 / fullNumber);
+};
+
+/**
+ * Display user notification, either via service worker, or via window.Notification
+ * @param message - a text message to display
+ */
+export const displayNotification = async (message: string) => {
+  const permission = localStorage.getItem(NOTIFICATION_KEY);
+
+  // Do not send notification is a user hasn't granted permission yet
+  if (!permission || permission === Permissions.denied) return;
+
+  if ('serviceWorker' in navigator && (window as any).swRegistration) {
+    try {
+      const { swRegistration: { scope } } = (window as any);
+      const registration = await navigator.serviceWorker.getRegistration(scope);
+      await registration.showNotification(message);
+    } catch (e) {
+      console.log('Things happen:', e);
+    }
+  }
 };

@@ -3,7 +3,8 @@ import { Row, Col } from 'reactstrap';
 
 import AppContext from './context';
 
-import { CURRENT_STEP, COUNT_VALUE } from './constants';
+import { CURRENT_STEP, COUNT_VALUE } from './utils/constants';
+import { displayNotification } from './utils/helpers';
 
 import SkipButton from './components/SkipButton';
 import BrewButton from './components/BrewButton';
@@ -11,6 +12,7 @@ import BrewCounter from './components/BrewCounter';
 import ResetButton from './components/ResetButton';
 import NoSleep from './components/NoSleep';
 import BeforeUnload from './components/BeforeUnload';
+import Notification from './components/Notification';
 
 import { GlobalStyle, MainContainer, ButtonCol } from './App.styles';
 
@@ -37,6 +39,7 @@ const App = () => {
     console.log('stop timer');
     setDisabled(false);
     skip();
+    displayNotification(count === -1 ? 'Your tea has been prepared!' : 'Your tea is ready!');
   };
 
   const skip = () => {
@@ -59,6 +62,7 @@ const App = () => {
     <>
       <NoSleep active={disabled}/>
       {disabled && <BeforeUnload/>}
+      <Notification/>
       <GlobalStyle/>
       <MainContainer>
         <Row>

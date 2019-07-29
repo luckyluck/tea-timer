@@ -3,11 +3,11 @@ import * as ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import App from './App';
-import AppContext, { defaultContext }  from './context';
+import AppContext, { defaultContext } from './context';
 
 ReactDOM.render(
   <AppContext.Provider value={defaultContext}>
-    <App />
+    <App/>
   </AppContext.Provider>,
   document.getElementById('root')
 );
