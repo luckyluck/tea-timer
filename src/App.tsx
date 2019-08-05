@@ -13,6 +13,7 @@ import ResetButton from './components/ResetButton';
 import NoSleep from './components/NoSleep';
 import BeforeUnload from './components/BeforeUnload';
 import Notification from './components/Notification';
+import Configuration from './components/Configuration';
 
 import { GlobalStyle, MainContainer, ButtonCol } from './App.styles';
 
@@ -65,6 +66,7 @@ const App = () => {
       <Notification/>
       <GlobalStyle/>
       <MainContainer>
+        <Configuration/>
         <Row>
           <ButtonCol className={'text-center'}>
             <BrewButton
