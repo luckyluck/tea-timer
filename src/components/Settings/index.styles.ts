@@ -9,6 +9,7 @@ export const ConfigurationContainer = styled.div`
   top: 0;
   left: 0;
   background: #fff;
+  transition: left .3s;
 `;
 
 export const ConfigurationSection = styled.section`
@@ -67,5 +68,21 @@ export const Switch = styled.div`
       transition: .4s;
       border-radius: 50%;
     }
+  }
+`;
+
+export const ToggleButton = styled.span`
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  
+  & > img {
+    width: 100%;
   }
 `;
