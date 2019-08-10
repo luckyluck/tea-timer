@@ -1,4 +1,6 @@
+// Name of the cache storage
 const CACHE = 'network-update-cache';
+// List of static files which we would prefer to pre-cache
 const STATIC_FILES = [
   'index.html',
   'favicon.ico',
