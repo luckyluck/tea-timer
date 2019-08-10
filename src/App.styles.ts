@@ -14,6 +14,7 @@ export const MainContainer = styled(Container)`
   flex-direction: column;
   min-width: 320px;
   height: 100vh;
+  position: relative;
   
   & > div {
     width: 100%;

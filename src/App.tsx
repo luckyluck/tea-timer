@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { Row, Col } from 'reactstrap';
 
-import AppContext from './context';
-
-import { CURRENT_STEP, COUNT_VALUE } from './utils/constants';
 import { displayNotification } from './utils/helpers';
+import { preparedState, appReducer, INCREMENT_STEP, RESET } from './utils/store';
 
 import SkipButton from './components/SkipButton';
 import BrewButton from './components/BrewButton';
@@ -13,23 +11,16 @@ import ResetButton from './components/ResetButton';
 import NoSleep from './components/NoSleep';
 import BeforeUnload from './components/BeforeUnload';
 import Notification from './components/Notification';
+import Settings from './components/Settings';
 
 import { GlobalStyle, MainContainer, ButtonCol } from './App.styles';
 
 const App = () => {
-  const storedCount = localStorage.getItem(COUNT_VALUE) ? +localStorage.getItem(COUNT_VALUE) : -1;
-  const storedStep = localStorage.getItem(CURRENT_STEP) ? +localStorage.getItem(CURRENT_STEP) : 0;
-
-  // Initial data from context
-  const { limit, periods } = React.useContext(AppContext);
+  const [state, dispatch] = React.useReducer(appReducer, preparedState);
   const [disabled, setDisabled] = React.useState(false);
-  const [count, setCount] = React.useState(storedCount);
-  const [currentStep, setCurrentStep] = React.useState(Math.min(storedStep, limit + 1));
 
   const start = () => {
-    if (disabled) {
-      return;
-    }
+    if (disabled) return;
 
     console.log('start timer');
     setDisabled(true);
@@ -39,56 +30,51 @@ const App = () => {
     console.log('stop timer');
     setDisabled(false);
     skip();
-    displayNotification(count === -1 ? 'Your tea has been prepared!' : 'Your tea is ready!');
+    displayNotification(state.count === -1 ? 'Your tea has been prepared!' : 'Your tea is ready!');
   };
 
   const skip = () => {
-    setCount(prevCount => prevCount + 1);
-    setCurrentStep(prevStep => prevStep + 1);
-    localStorage.setItem(CURRENT_STEP, JSON.stringify(currentStep + 1));
-    localStorage.setItem(COUNT_VALUE, JSON.stringify(count + 1));
+    dispatch({ type: INCREMENT_STEP });
   };
 
   const reset = () => {
     console.log('reset timer');
-    setCurrentStep(0);
-    localStorage.setItem(CURRENT_STEP, '0');
-    setCount(-1);
-    localStorage.setItem(COUNT_VALUE, '-1');
+    dispatch({ type: RESET });
     setDisabled(false);
   };
 
   return (
     <>
-      <NoSleep active={disabled}/>
+      <NoSleep active={state.activity || disabled}/>
       {disabled && <BeforeUnload/>}
       <Notification/>
       <GlobalStyle/>
       <MainContainer>
+        <Settings state={state} update={dispatch}/>
         <Row>
           <ButtonCol className={'text-center'}>
             <BrewButton
               start={start}
               stop={stop}
               active={disabled}
-              disabled={count >= limit}
-              step={currentStep}
-              time={periods[currentStep]}
-              limit={limit}
+              disabled={state.count >= state.limit}
+              step={state.currentStep}
+              time={state.periods[state.currentStep]}
+              limit={state.limit}
             />
           </ButtonCol>
         </Row>
         <Row>
           <Col>
-            <BrewCounter count={count} limit={limit}/>
+            <BrewCounter count={state.count} limit={state.limit}/>
           </Col>
         </Row>
         <Row>
           <Col>
-            <SkipButton skip={skip} disabled={count >= limit}/>
+            <SkipButton skip={skip} disabled={state.count >= state.limit}/>
           </Col>
           <Col>
-            <ResetButton reset={reset} disabled={count < 0}/>
+            <ResetButton reset={reset} disabled={state.count < 0}/>
           </Col>
         </Row>
       </MainContainer>

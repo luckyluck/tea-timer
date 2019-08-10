@@ -9,10 +9,13 @@
     * 5 min
 
 ## TODO:
-* add service worker
-* * show notification about adding the app on a desktop
-* Add Jest unit tests
+* Configuration (hard codded version)
+    * periods configuration
+        * list or periods (at least one should be)
+        * minutes for each period
 
 ## Plans
 * keep statistics
 * page to show statistics
+* Add Jest unit tests
+* Update caching key to avoid old functionality
