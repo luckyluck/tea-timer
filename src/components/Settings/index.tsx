@@ -1,20 +1,15 @@
 import * as React from 'react';
 
 import { ConfigurationContainer, ConfigurationSection, Switch, ToggleButton } from './index.styles';
+import { State, SET_ACTIVITY, PREPARATION } from '../../utils/store';
 
-const CONFIGURATION_VALUE = {
-  activity: 'activity',
-  prepare: 'preparation'
-};
+interface Props {
+  state: State,
+  update: Function,
+}
 
-const Settings = () => {
-  const [checkedActivity, setCheckedActivity] = React.useState(localStorage.getItem(CONFIGURATION_VALUE.activity) === 'true');
-  const [isPreparing, setIsPreparing] = React.useState(localStorage.getItem(CONFIGURATION_VALUE.prepare) !== 'false');
+const Settings: React.FunctionComponent<Props> = ({ state, update }: Props) => {
   const [isActive, setActive] = React.useState(false);
-
-  const save = (e, name: string) => {
-    localStorage.setItem(name, e.target.value.toString());
-  };
 
   return (
     <>
@@ -30,16 +25,16 @@ const Settings = () => {
 
         <ConfigurationSection>
           <h6>Keep the screen active all the time</h6>
-          <Switch onClick={() => setCheckedActivity(!checkedActivity)}>
-            <input type="checkbox" checked={checkedActivity} onChange={e => save(e, CONFIGURATION_VALUE.activity)}/>
+          <Switch onClick={() => update({ type: SET_ACTIVITY, payload: !state.activity })}>
+            <input type="checkbox" checked={state.activity} onChange={() => {}}/>
             <div/>
           </Switch>
         </ConfigurationSection>
 
         <ConfigurationSection>
           <h6>Add preparation step</h6>
-          <Switch onClick={() => setIsPreparing(!isPreparing)}>
-            <input type="checkbox" checked={isPreparing} onChange={e => save(e, CONFIGURATION_VALUE.activity)}/>
+          <Switch onClick={() => update({ type: PREPARATION, payload: !state.preparation })}>
+            <input type="checkbox" checked={state.preparation} onChange={() => {}}/>
             <div/>
           </Switch>
         </ConfigurationSection>

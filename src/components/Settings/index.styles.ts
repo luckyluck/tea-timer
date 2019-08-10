@@ -4,7 +4,7 @@ export const ConfigurationContainer = styled.div`
   width: 100%;
   height: 100vh;
   position: fixed;
-  padding: 10px 15px;
+  padding: 20px 30px;
   z-index: 2;
   top: 0;
   left: 0;
