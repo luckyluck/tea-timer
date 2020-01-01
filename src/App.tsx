@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Row, Col } from 'reactstrap';
+import Grid from '@material-ui/core/Grid';
 
 import { displayNotification } from './utils/helpers';
 import { preparedState, appReducer, INCREMENT_STEP, RESET } from './utils/store';
@@ -7,7 +7,6 @@ import { preparedState, appReducer, INCREMENT_STEP, RESET } from './utils/store'
 import SkipButton from './components/SkipButton';
 import BrewButton from './components/BrewButton';
 import BrewCounter from './components/BrewCounter';
-import ResetButton from './components/ResetButton';
 import NoSleep from './components/NoSleep';
 import BeforeUnload from './components/BeforeUnload';
 import Notification from './components/Notification';
@@ -21,6 +20,10 @@ const App = () => {
 
   const start = () => {
     if (disabled) return;
+    if (state.count >= state.limit) {
+      reset();
+      return;
+    }
 
     console.log('start timer');
     setDisabled(true);
@@ -49,34 +52,33 @@ const App = () => {
       {disabled && <BeforeUnload/>}
       <Notification/>
       <GlobalStyle/>
-      <MainContainer>
+      <MainContainer container active={disabled}>
         <Settings state={state} update={dispatch}/>
-        <Row>
-          <ButtonCol className={'text-center'}>
-            <BrewButton
-              start={start}
-              stop={stop}
-              active={disabled}
-              disabled={state.count >= state.limit}
-              step={state.currentStep}
-              time={state.periods[state.currentStep]}
-              limit={state.limit}
-            />
-          </ButtonCol>
-        </Row>
-        <Row>
-          <Col>
+        <Grid container>
+          <Grid item xs={12}>
+            <ButtonCol item xs={12} className={'text-center'}>
+              <BrewButton
+                start={start}
+                stop={stop}
+                active={disabled}
+                disabled={state.count >= state.limit}
+                step={state.currentStep}
+                time={state.periods[state.currentStep]}
+                limit={state.limit}
+              />
+            </ButtonCol>
+          </Grid>
+        </Grid>
+        <Grid container>
+          <Grid item xs={12}>
             <BrewCounter count={state.count} limit={state.limit}/>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
+          </Grid>
+        </Grid>
+        <Grid container>
+          <Grid item xs={12}>
             <SkipButton skip={skip} disabled={state.count >= state.limit}/>
-          </Col>
-          <Col>
-            <ResetButton reset={reset} disabled={state.count < 0}/>
-          </Col>
-        </Row>
+          </Grid>
+        </Grid>
       </MainContainer>
     </>
   );

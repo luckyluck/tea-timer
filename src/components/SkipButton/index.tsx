@@ -1,15 +1,22 @@
 import * as React from 'react';
-import { Button } from 'reactstrap';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 
-interface Props {
-  disabled: boolean,
-  skip: Function
-}
+type Props = {
+  disabled: boolean;
+  skip(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void;
+};
+
+const CustomButton = withStyles({
+  root: {
+    width: '100%'
+  }
+})(Button);
 
 const SkipButton = ({ disabled, skip }: Props) => (
-  <Button color={'info'} block={true} disabled={disabled} onClick={skip}>
+  <CustomButton variant="contained" color={'primary'} disabled={disabled} onClick={skip}>
     Skip step
-  </Button>
+  </CustomButton>
 );
 
 export default SkipButton;

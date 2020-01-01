@@ -1,6 +1,11 @@
 import * as React from 'react';
+import MenuIcon from '@material-ui/icons/Menu';
+import CloseIcon from '@material-ui/icons/Close';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
-import { ConfigurationContainer, ConfigurationSection, Switch, ToggleButton } from './index.styles';
+import { ConfigurationContainer, ToggleButton } from './index.styles';
 import { State, SET_ACTIVITY, PREPARATION } from '../../utils/store';
 
 interface Props {
@@ -14,30 +19,40 @@ const Settings: React.FunctionComponent<Props> = ({ state, update }: Props) => {
   return (
     <>
       <ToggleButton onClick={() => setActive(true)}>
-        <img alt={'Settings'} src="https://img.icons8.com/ios-filled/50/000000/settings.png"/>
+        <MenuIcon/>
       </ToggleButton>
       <ConfigurationContainer style={{ left: isActive ? 0 : '-100%' }}>
         <ToggleButton onClick={() => setActive(false)}>
-          <img alt={'Close'} src="https://img.icons8.com/ios-glyphs/30/000000/delete-sign.png"/>
+          <CloseIcon/>
         </ToggleButton>
 
         <h2>Configuration</h2>
 
-        <ConfigurationSection>
-          <h6>Keep the screen active all the time</h6>
-          <Switch onClick={() => update({ type: SET_ACTIVITY, payload: !state.activity })}>
-            <input type="checkbox" checked={state.activity} onChange={() => {}}/>
-            <div/>
-          </Switch>
-        </ConfigurationSection>
+        <FormGroup row>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={!!state.activity}
+                onChange={() => update({ type: SET_ACTIVITY, payload: !state.activity })}
+                color="primary"
+              />
+            }
+            label="Keep the screen active all the time"
+          />
+        </FormGroup>
 
-        <ConfigurationSection>
-          <h6>Add preparation step</h6>
-          <Switch onClick={() => update({ type: PREPARATION, payload: !state.preparation })}>
-            <input type="checkbox" checked={state.preparation} onChange={() => {}}/>
-            <div/>
-          </Switch>
-        </ConfigurationSection>
+        <FormGroup row>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={!!state.preparation}
+                onChange={() => update({ type: PREPARATION, payload: !state.preparation })}
+                color="primary"
+              />
+            }
+            label="Add preparation step"
+          />
+        </FormGroup>
       </ConfigurationContainer>
     </>
   );

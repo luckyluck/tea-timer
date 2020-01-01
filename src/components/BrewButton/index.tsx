@@ -1,21 +1,30 @@
 import * as React from 'react';
-import { Row, Col } from 'reactstrap';
-import { Spring } from 'react-spring/renderprops';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { withStyles } from '@material-ui/core/styles';
 
-import { ActionButton } from './index.styles';
+import { ButtonContainer, TextContainer, ProgressCircle } from './index.styles';
 import { toMinutesAndSeconds } from '../../utils/helpers';
 
-interface Props {
-  disabled: boolean,
-  active: boolean,
-  step: number,
-  start: Function,
-  stop: Function,
-  time: number,
-  limit: number,
-}
+type Props = {
+  disabled: boolean;
+  active: boolean;
+  step: number;
+  start: Function;
+  stop: Function;
+  time: number;
+  limit: number;
+};
+
+const CustomCircularProgress = withStyles({
+  root: {
+    color: '#ffffff'
+  }
+})(CircularProgress);
 
 const BrewButton = ({ disabled, active, start, stop, step, time, limit }: Props) => {
+  // diameter is 300, stroke width is 4, radius is (diameter / 2) - (2 * strokeWidth)
+  const radius = 142;
+  const circumference = 2 * radius * Math.PI;
   const [intervalId, setIntervalId] = React.useState(null);
   const [timer, setTimer] = React.useState(time);
 
@@ -24,7 +33,7 @@ const BrewButton = ({ disabled, active, start, stop, step, time, limit }: Props)
     if (timer <= 0 && intervalId) {
       clearInterval(intervalId);
       setIntervalId(null);
-      stop();
+      setTimeout(stop, 1000);
     }
     // Updating timer after every step increase
     if (!intervalId && (!timer || timer !== time)) {
@@ -60,32 +69,28 @@ const BrewButton = ({ disabled, active, start, stop, step, time, limit }: Props)
     }
   };
 
+  const getProgress = () => Math.ceil(((time - timer) * 100) / time);
+
+  const getFillColor = React.useCallback(() => {
+    if (active) return 'transparent';
+    if (disabled) return '#6c757d';
+    return '#007bff';
+  }, [active, disabled]);
+
   return (
-    <Spring native from={{ scale: 1 }} to={{ scale: active ? 10 : 1 }}>
-      {({ scale }) => (
-        <ActionButton
-          style={{
-            transform: (scale as any).interpolate(scale => `scale(${scale})`),
-            fontSize: active ? '80%' : '100%'
-          }}
-          disabled={disabled}
-          onClick={handleClick}
-        >
-          <Row style={{ visibility: active ? 'hidden' : 'visible' }}>
-            <Col>
-              {getText()}
-            </Col>
-          </Row>
-          {step <= limit && (
-            <Row>
-              <Col>
-                {toMinutesAndSeconds(timer)}
-              </Col>
-            </Row>
-          )}
-        </ActionButton>
-      )}
-    </Spring>
+    <ButtonContainer onClick={handleClick}>
+      <CustomCircularProgress variant="static" value={getProgress()} size={300}/>
+      <TextContainer style={{ backgroundColor: getFillColor() }}>
+        <span style={{ visibility: active ? 'hidden' : 'visible' }}>
+          {getText()}
+        </span>
+        {step <= limit && (
+          <span>
+            {toMinutesAndSeconds(timer)}
+          </span>
+        )}
+      </TextContainer>
+    </ButtonContainer>
   );
 };
 

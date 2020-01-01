@@ -13,7 +13,10 @@ const NoSleep = ({ active }: Props) => {
       muted={true}
       style={{
         width: 0,
-        height: 0
+        height: 0,
+        position: 'absolute',
+        top: 0,
+        left: 0
       }}
     />
   ) : null;

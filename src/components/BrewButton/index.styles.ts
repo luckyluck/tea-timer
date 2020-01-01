@@ -1,22 +1,25 @@
 import styled from 'styled-components';
-import { animated } from 'react-spring/renderprops';
 
-export const ActionButton = styled(animated.button)`
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  color: #ffffff;
-  background-color: #007bff;
-  border: none;
+export const ButtonContainer = styled.div`
   position: relative;
-  z-index: 1;
-  
-  &:focus {
-    outline: none;
-  }
-  
-  :disabled {
-    background-color: #6c757d;
-    cursor: not-allowed;
-  }
+`;
+
+export const TextContainer = styled.div`
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  bottom: 1px;
+  left: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  border-radius: 50%;
+`;
+
+export const ProgressCircle = styled.circle`
+  transition: 0.35s stroke-dashoffset;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
 `;
